@@ -19,7 +19,7 @@ class Texture():
         return self.sprites.get(name, pygame.Surface((self.width, self.height)))
         
 
-    def add_sprites(self, src:str, sprite_width:int, sprite_height:int, sprite_name:str) -> None:
+    def add_sprites(self, src:str, sprite_num:int, sprite_name:str) -> None:
 
         try:
             #returning loaded image scaled to the texture size
@@ -28,22 +28,17 @@ class Texture():
             #fallback surface for invalid src arg
             print(f"ERROR: Texture: add_sprites: {e}")
             return
-
-        #this assumes spritesheets have 1 row and are made horizontal... Yikes!
-        total_sprites = math.ceil(spritesheet.get_width()/sprite_width)
-
-        #checks if the spritesheet is only one sprite, meaning we can
-        #immedietely resize
-        if total_sprites <= 1:
-            spritesheet = pygame.transform.scale(spritesheet, (self.width, self.height))
         
-        for s in range(total_sprites):
-            #getting the sprite portion of the sheet
-            sprite = spritesheet.subsurface(pygame.Rect(sprite_width*s, 0, sprite_width, sprite_height))
+        sprite_width = spritesheet.get_width() / sprite_num
+        sprite_height = spritesheet.get_height() / sprite_num
+
+        for s in range(sprite_num):
+            location_x = sprite_width * s
+
+            sprite = spritesheet.subsurface((location_x, 0), (sprite_width, sprite_height))
             sprite = pygame.transform.scale(sprite, (self.width, self.height))
-            
-            self.sprites[f"{sprite_name}{s}"] = sprite
-        
+
+            self.sprites[f"{sprite_name}{s}"] = sprite       
 
 
 
