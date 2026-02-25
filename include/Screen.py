@@ -8,9 +8,9 @@ class Screen():
         self.screen = pygame.display.set_mode((width, height))
 
         self.texture = Texture.Texture(width, height)
-        self.texture.add_sprites("assets/background.png", 2, "background")
+        self.texture.add_sprites("assets/background.png", 1, "background")
         
-        self.background = self.texture.get_sprite("background1")
+        self.background = self.texture.get_sprite("background0")
 
         self.clock = pygame.time.Clock()
         self.fps = 60
@@ -21,9 +21,6 @@ class Screen():
         self.layers = {
 
         }
-
-        print(self.texture.sprites)
-
 
     def update(self) -> None:
 

@@ -21,11 +21,15 @@ class Texture():
 
     def add_sprites(self, src:str, sprite_num:int, sprite_name:str) -> None:
 
+        #are we serious?
+        if sprite_num <= 0:
+            print("ERROR: Texture: add_sprites: Attempted parse of 0 sprites.")
+            return
+
         try:
-            #returning loaded image scaled to the texture size
+            #getting loaded image
             spritesheet = pygame.image.load(src)
         except Exception as e:
-            #fallback surface for invalid src arg
             print(f"ERROR: Texture: add_sprites: {e}")
             return
         
