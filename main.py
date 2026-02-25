@@ -1,7 +1,7 @@
 import pygame
 import include.Screen as Screen
 
-screen = Screen.Screen(800, 1000)
+screen = Screen.Screen(800, 800)
 
 running = True
 while running:

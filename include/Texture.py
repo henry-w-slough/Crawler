@@ -1,4 +1,5 @@
 import pygame
+import math
 
 
 class Texture():
@@ -29,12 +30,16 @@ class Texture():
             return
 
         #this assumes spritesheets have 1 row and are made horizontal... Yikes!
-        total_sprites = spritesheet.get_width()//sprite_width
+        total_sprites = math.ceil(spritesheet.get_width()/sprite_width)
+
+        #checks if the spritesheet is only one sprite, meaning we can
+        #immedietely resize
+        if total_sprites <= 1:
+            spritesheet = pygame.transform.scale(spritesheet, (self.width, self.height))
         
         for s in range(total_sprites):
             #getting the sprite portion of the sheet
             sprite = spritesheet.subsurface(pygame.Rect(sprite_width*s, 0, sprite_width, sprite_height))
-            #resizing the new sprite
             sprite = pygame.transform.scale(sprite, (self.width, self.height))
             
             self.sprites[f"{sprite_name}{s}"] = sprite

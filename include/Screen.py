@@ -23,7 +23,7 @@ class Screen():
         }
 
 
-    def update(self):
+    def update(self) -> None:
 
         #displaying the background (noteably before all layers)
         self.screen.blit(self.background, (0, 0))
