@@ -4,55 +4,40 @@ import pygame
 class Texture():
     def __init__(self, width:int, height:int) -> None:
         
-        self.texture = pygame.Surface((width, height))
-
         self.width = width
         self.height = height
 
+        #holds all sprites added through spritesheets
         self.sprites = {
 
         }
 
 
     def get_sprite(self, name:str) -> pygame.Surface:
-        return self.sprites.get(name, pygame.Surface((32, 32)))
+        #returns the corresponding sprite in the object's sprites dict
+        return self.sprites.get(name, pygame.Surface((self.width, self.height)))
+        
 
+    def add_sprites(self, src:str, sprite_width:int, sprite_height:int, sprite_name:str) -> None:
 
-    def index_sprite(self, index) -> pygame.Surface:
         try:
-            return list(self.sprites.values())[index]
-        except Exception as e:
-            print(f"ERROR: Texture: index_sprite: {e}")
-            return pygame.Surface((self.width, self.height))
-
-
-    def set_texture(self, img:pygame.Surface) -> None:
-        #setting the sprite of this object
-        self.sprite = img
-        #updating w, h
-        self.width = img.get_width()
-        self.height = img.get_height()
-    
-
-    def add_spritesheet(self, src:str, sprite_w:int, sprite_h:int) -> None:
-
-        #loading image with error handling
-        try:
+            #returning loaded image scaled to the texture size
             spritesheet = pygame.image.load(src)
-        except Exception as e:  
-            print(f"ERROR: Texture: add_spritesheet: {e}")
+        except Exception as e:
+            #fallback surface for invalid src arg
+            print(f"ERROR: Texture: add_sprites: {e}")
             return
 
-        total_sprites = spritesheet.get_width() // sprite_w
-
-        #iterating through all found sprites
+        #this assumes spritesheets have 1 row and are made horizontal... Yikes!
+        total_sprites = spritesheet.get_width()//sprite_width
+        
         for s in range(total_sprites):
-            #getting sprite by finding pos on spritesheet surface
-            new_sprite = pygame.Surface((sprite_w, sprite_h))
-            new_sprite.blit(spritesheet, (0, 0), (sprite_w*s, 0, sprite_w, sprite_h))
-            #adding new sprite to sprites dict
-            self.sprites[f"{s}"] = new_sprite
-                
+            #getting the sprite portion of the sheet
+            sprite = spritesheet.subsurface(pygame.Rect(sprite_width*s, 0, sprite_width, sprite_height))
+            #resizing the new sprite
+            sprite = pygame.transform.scale(sprite, (self.width, self.height))
+            
+            self.sprites[f"{sprite_name}{s}"] = sprite
         
 
 
