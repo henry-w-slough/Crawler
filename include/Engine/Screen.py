@@ -1,5 +1,5 @@
 import pygame
-import include.Texture as Texture
+import include.Engine.Texture as Texture
 
 
 class Screen():
@@ -8,7 +8,7 @@ class Screen():
         self.screen = pygame.display.set_mode((width, height))
 
         self.texture = Texture.Texture(width, height)
-        self.texture.add_sprites("assets/background.png", 1, "background")
+        self.texture.add_sprites("assets/spritesheets/background.png", 1, "background")
         
         self.background = self.texture.get_sprite("background0")
 
@@ -19,7 +19,7 @@ class Screen():
         self.height = height
 
         self.layers = {
-
+            "tiles": pygame.sprite.Group()
         }
 
     def update(self) -> None:
@@ -27,7 +27,7 @@ class Screen():
         #displaying the background (noteably before all layers)
         self.screen.blit(self.background, (0, 0))
 
-        for layer in self.layers:
+        for layer in self.layers.values():
             layer.update()
             layer.draw(self.screen)
 
