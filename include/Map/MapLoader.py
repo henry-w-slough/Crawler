@@ -22,16 +22,21 @@ class MapLoader():
         return self.maps[name]
     
     def map_to_group(self, group:pygame.sprite.Group, map_name:str) -> None:
+
+        #getting data references
         map = self.get_map(map_name)
         data = map.level_data
 
-        t_w = data["tilewidth"]
-        t_h = data["tileheight"]
+        for layer in data["layers"]:
 
-        #forgive me father for I have sinned
-        for x, row in enumerate(data["layers"][0]["data"]):
-            for y, column in enumerate(data["layers"][0]["data"]):
-                Tile.Tile(t_w, t_h, x*t_w, y*t_h, group)
+            for index, tile_id in enumerate(layer["data"]):
+
+                if tile_id != 0:
+
+                    x = (index % layer["width"]) * (data["tilewidth"])
+                    y = (index // layer["width"]) * (data["tileheight"])
+
+                    Tile.Tile(data["tilewidth"], data["tileheight"], x, y, group)
 
         
     
