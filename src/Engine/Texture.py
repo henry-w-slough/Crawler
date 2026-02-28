@@ -35,13 +35,19 @@ class Texture():
             print(f"ERROR: Texture: add_sprites: {e}")
             return
         
+        #these are neccessary for subsurface calculation.
+        #Without these, the calculation with self.width and self.height instead
+        #are outside the spritesheets calculation if bigger than it's width
+        sprite_width = spritesheet.get_width() / sprite_num
+        sprite_height = spritesheet.get_height()
+        
         #iterating through all calculated sprites
         for s in range(sprite_num):
             #getting x pos, assumes spritesheets are horizontal
             location_x = self.width * s
 
             #cutting the sprite and transforming it to the scale of the texture
-            sprite = spritesheet.subsurface((location_x, 0), (self.width, self.height))
+            sprite = spritesheet.subsurface((location_x, 0), (sprite_width, sprite_height))
             sprite = pygame.transform.scale(sprite, (self.width, self.height))
 
             #adding
