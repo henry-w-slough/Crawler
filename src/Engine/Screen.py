@@ -4,6 +4,7 @@ import src.Engine.Texture as Texture
 
 class Screen():
     def __init__(self, width:int, height:int) -> None:
+        """Handles any screen-related logic needed for a game. Updates all objects added to it's layers dict and updates the display."""
         
         self.screen = pygame.display.set_mode((width, height))
 
