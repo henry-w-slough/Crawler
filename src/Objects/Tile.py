@@ -1,4 +1,4 @@
-import include.Engine.GameObject as GameObject
+import src.Engine.GameObject as GameObject
 import pygame
 
 class Tile(GameObject.GameObject):

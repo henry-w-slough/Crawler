@@ -1,6 +1,6 @@
-from include.Engine import Screen
-import include.Map.Map as Map
-import include.Objects.Tile as Tile
+from src.Engine import Screen
+import src.Map.Map as Map
+import src.Objects.Tile as Tile
 import pygame
 
 
@@ -11,6 +11,7 @@ class MapLoader():
 
         }
 
+
     def load_map(self, src:str, name:str) -> Map.Map:
         #creating the new Map object, which holds all the data from the src json
         new_map = Map.Map(src)
@@ -18,8 +19,10 @@ class MapLoader():
         self.maps[name] = new_map
         return new_map
     
+
     def get_map(self, name:str) -> Map.Map:
         return self.maps[name]
+    
     
     def map_to_group(self, group:pygame.sprite.Group, map_name:str) -> None:
 
