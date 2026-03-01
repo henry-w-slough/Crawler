@@ -1,6 +1,6 @@
 import pygame
 import src.Engine.Screen as Screen
-import src.Map.MapLoader as MapLoader
+import src.Engine.MapLoader as MapLoader
 
 screen = Screen.Screen(800, 800)
 
