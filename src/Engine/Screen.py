@@ -20,7 +20,8 @@ class Screen():
         self.height = height
 
         self.layers = {
-            "tiles": pygame.sprite.Group()
+            "tiles": pygame.sprite.Group(),
+            "sprites": pygame.sprite.Group()
         }
 
     def update(self) -> None:

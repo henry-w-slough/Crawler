@@ -36,13 +36,14 @@ class MapLoader():
         #getting data references
         data = self.get_map_data(map_name)
 
+        #some maps have multiple layers, so this is to cover all of them
         for layer in data["layers"]:
-
+            #gets the index and the tile type of each item in the level data
             for index, tile_id in enumerate(layer["data"]):
-                
+                #calculates x, y based on the index and data values
                 x = (index % layer["width"]) * (data["tilewidth"])
                 y = (index // layer["width"]) * (data["tileheight"])
-
+                #adding tiles based on the iterated data
                 if tile_id == 1:
                     Tile.Brick(data["tilewidth"], data["tileheight"], x, y, group)
                 if tile_id == 2:
