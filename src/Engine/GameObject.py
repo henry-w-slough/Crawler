@@ -16,4 +16,9 @@ class GameObject(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+    def add_position(self, x:int, y:int) -> None:
+        """Adds the given values to the GameObject's x and y position."""
+        self.rect.x += x
+        self.rect.y += y
+
     

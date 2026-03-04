@@ -8,11 +8,6 @@ class Screen():
         
         self.screen = pygame.display.set_mode((width, height))
 
-        self.texture = Texture.Texture(width, height)
-        self.texture.add_sprites("assets/spritesheets/background.png", 1, "background")
-        
-        self.background = self.texture.get_sprite("background0")
-
         self.clock = pygame.time.Clock()
         self.fps = 60
 
@@ -21,15 +16,18 @@ class Screen():
 
         self.layers = {
             "tiles": pygame.sprite.Group(),
-            "sprites": pygame.sprite.Group()
+            "sprites": pygame.sprite.Group(),
+            "visible": pygame.sprite.Group()
         }
 
     def update(self) -> None:
 
-        #displaying the background (noteably before all layers)
-        self.screen.blit(self.background, (0, 0))
+        #filling screen with black
+        self.screen.fill((0, 0, 0))
 
-        for layer in self.layers.values():
+        for id, layer in self.layers.items():
+            #this iterates through every item and updates
+            #only draws the visible items, as said by a Camera object
             layer.update()
             layer.draw(self.screen)
 
