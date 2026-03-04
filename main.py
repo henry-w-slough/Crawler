@@ -9,7 +9,7 @@ map_loader = MapLoader.MapLoader()
 map_loader.load_map("assets/levels/level1/level1_tilemap.tmj", "level1")
 map_loader.map_to_group(screen.layers["tiles"], "level1")
 
-player = Player.Player(32, 32, screen.layers["sprites"])
+player = Player.Player(32, 32, screen.layers["player"])
 player.set_position(128, 128)
 
 running = True

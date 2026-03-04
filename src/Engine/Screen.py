@@ -1,5 +1,6 @@
 import pygame
 import src.Engine.Texture as Texture
+import src.Engine.Camera as Camera
 
 
 class Screen():
@@ -16,11 +17,18 @@ class Screen():
 
         self.layers = {
             "tiles": pygame.sprite.Group(),
-            "sprites": pygame.sprite.Group(),
+            "player": pygame.sprite.Group(),
             "visible": pygame.sprite.Group()
         }
+    
+    def start(self) -> None:
+        self.camera = Camera.Camera(list(self.layers["player"])[0])
 
     def update(self) -> None:
+
+
+        self.layers["visible"].add(self.camera.get_visible(self.layers["tiles"]))
+        self.layers["visible"].add(self.camera.get_visible(self.layers["player"]))
 
         #filling screen with black
         self.screen.fill((0, 0, 0))
@@ -29,7 +37,8 @@ class Screen():
             #this iterates through every item and updates
             #only draws the visible items, as said by a Camera object
             layer.update()
-            layer.draw(self.screen)
+            if id == "visible":
+                layer.draw(self.screen)
 
         pygame.display.flip()
         self.clock.tick(self.fps)
