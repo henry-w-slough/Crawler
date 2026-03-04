@@ -44,7 +44,7 @@ class Texture():
         #iterating through all calculated sprites
         for s in range(sprite_num):
             #getting x pos, assumes spritesheets are horizontal
-            location_x = self.width * s
+            location_x = sprite_width * s
 
             #cutting the sprite and transforming it to the scale of the texture
             sprite = spritesheet.subsurface((location_x, 0), (sprite_width, sprite_height))
